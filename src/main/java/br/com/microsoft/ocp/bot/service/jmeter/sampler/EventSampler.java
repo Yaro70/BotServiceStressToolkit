@@ -35,6 +35,7 @@ public class EventSampler extends BaseBotSampler {
 	public static final String NUM_OF_EXPECTED_RESPONSES = "NUM_OF_EXCPECTED_RESPONSES_FOR_MESSAGE";
 	public static final String EVENT_NAME = "NAME";
 	public static final String CHANNELDATA = "CHANNELDATA";
+	public static final String VALUE = "VALUE";
 	
 	public static final String NUM_OF_EXPECTED_RESPONSES_DEFAULT_VALUE = "1";
 	public static final String EVENT_NAME_DEFAULT_VALUE = "EventName";
@@ -53,8 +54,8 @@ public class EventSampler extends BaseBotSampler {
 			
 			String conversationId = vars.get(Constants.CONVERSATION_ID);
 			
-			Event requestEvent = EventActivityBuilder.build(getChanneldata(), getEventName(),
-					new Member(getFromUser()), new Member(getRecipientMemberId()), getChannelId(),
+			Event requestEvent = EventActivityBuilder.build(getJsonProperty(CHANNELDATA), getJsonProperty(VALUE),
+					getEventName(), new Member(getFromUser()), new Member(getRecipientMemberId()), getChannelId(),
 					getCallbackUrl(), conversationId);
 			
 			BlockingQueue<Activity> queue = null;
@@ -91,14 +92,14 @@ public class EventSampler extends BaseBotSampler {
 	private boolean shouldWaitForResponseActivity() {
 		return getNumberOfResponseMessagesExpected() > 0;
 	}
-	
-	private JsonObject getChanneldata() {
-		String jsonStr = getPropertyAsString(CHANNELDATA);
+
+	private JsonObject getJsonProperty(String propertyName) {
+		String jsonStr = getPropertyAsString(propertyName);
 		System.out.println("JSON string: " + jsonStr);
 		JsonReader jsonReader = Json.createReader(new StringReader(jsonStr));
 		JsonObject obj = jsonReader.readObject();
 		jsonReader.close();
-		
+
 		return obj;
 	}
 	

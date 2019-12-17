@@ -10,6 +10,7 @@ public class Event extends Activity {
 	
 	private String name;
 	private JsonObject channeldata;
+	private JsonObject value;
 	
 	public String getName() {
 		return name;
@@ -27,5 +28,11 @@ public class Event extends Activity {
 		this.channeldata = channeldata;
 	}
 	
-	
+	public JsonObject getValue() {
+		return this.value;
+	}
+
+	public void setValue(JsonObject value) {
+		this.value = value;
+	}
 }

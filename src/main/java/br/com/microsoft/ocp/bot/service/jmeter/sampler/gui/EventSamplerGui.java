@@ -3,16 +3,13 @@ package br.com.microsoft.ocp.bot.service.jmeter.sampler.gui;
 import java.awt.BorderLayout;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
-
 import org.apache.jmeter.samplers.gui.AbstractSamplerGui;
 import org.apache.jmeter.testelement.TestElement;
-
 import br.com.microsoft.ocp.bot.service.jmeter.sampler.EventSampler;
 
 public class EventSamplerGui extends AbstractSamplerGui {
@@ -23,13 +20,17 @@ public class EventSamplerGui extends AbstractSamplerGui {
 	private static final String NUMBER_OF_RESPONSES_EXPECTED_LABEL = "# of Responses Expected:";
 	private static final String EVENT_NAME_LABEL = "Event name:";
 	private static final String CHANNELDATA_LABEL = "Channeldata (JSON string):";
+	private static final String VALUE_LABEL = "Value (JSON string):";
 	
 	private javax.swing.JLabel numOfResponsesExpectedLabel = new JLabel();
 	private javax.swing.JLabel eventNameLabel = new JLabel();
 	private javax.swing.JLabel channeldataLabel = new JLabel();
 	private javax.swing.JScrollPane channeldataAreaScrollPane = new javax.swing.JScrollPane();
+	private javax.swing.JLabel valueLabel = new JLabel();
+	private javax.swing.JScrollPane valueAreaScrollPane = new javax.swing.JScrollPane();
 	
 	private javax.swing.JTextArea channeldataTextArea = new JTextArea();
+	private javax.swing.JTextArea valueTextArea = new JTextArea();
 	private javax.swing.JTextField eventNameTextField = new JTextField();
 	private javax.swing.JTextField numOfResponsesExpectedTextField = new JTextField();
 	
@@ -52,6 +53,7 @@ public class EventSamplerGui extends AbstractSamplerGui {
 		super.configure(element);
 		numOfResponsesExpectedTextField.setText(String.valueOf(element.getPropertyAsInt(EventSampler.NUM_OF_EXPECTED_RESPONSES)));
 		channeldataTextArea.setText(element.getPropertyAsString(EventSampler.CHANNELDATA));
+		valueTextArea.setText(element.getPropertyAsString(EventSampler.VALUE));
 		eventNameTextField.setText(element.getPropertyAsString(EventSampler.EVENT_NAME));
 	}
 
@@ -70,6 +72,7 @@ public class EventSamplerGui extends AbstractSamplerGui {
 		te.setProperty(EventSampler.NUM_OF_EXPECTED_RESPONSES,
 				Integer.parseInt(numOfResponsesExpectedTextField.getText()));
 		te.setProperty(EventSampler.CHANNELDATA, channeldataTextArea.getText());
+		te.setProperty(EventSampler.VALUE, valueTextArea.getText());
 		te.setProperty(EventSampler.EVENT_NAME, eventNameTextField.getText());		
 	}
 	
@@ -90,6 +93,10 @@ public class EventSamplerGui extends AbstractSamplerGui {
 		channeldataTextArea.setColumns(20);
 		channeldataTextArea.setRows(5);
 		channeldataAreaScrollPane.setViewportView(channeldataTextArea);
+
+		valueTextArea.setColumns(20);
+		valueTextArea.setRows(5);
+		valueAreaScrollPane.setViewportView(valueTextArea);
 		
 		NumberFormat format = new DecimalFormat("#0");
 		NumberFormatter formatter = new NumberFormatter(format);
@@ -102,6 +109,7 @@ public class EventSamplerGui extends AbstractSamplerGui {
 		numOfResponsesExpectedTextField = new javax.swing.JFormattedTextField(formatter);
 		numOfResponsesExpectedLabel.setText(NUMBER_OF_RESPONSES_EXPECTED_LABEL);
 		channeldataLabel.setText(CHANNELDATA_LABEL);
+		valueLabel.setText(VALUE_LABEL);
 		eventNameLabel.setText(EVENT_NAME_LABEL);
 		
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
@@ -115,6 +123,9 @@ public class EventSamplerGui extends AbstractSamplerGui {
 										.addComponent(channeldataLabel, javax.swing.GroupLayout.Alignment.LEADING,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(valueLabel, javax.swing.GroupLayout.Alignment.LEADING,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(eventNameLabel, javax.swing.GroupLayout.Alignment.LEADING,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -126,6 +137,8 @@ public class EventSamplerGui extends AbstractSamplerGui {
 								.addComponent(numOfResponsesExpectedTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
 										244, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(channeldataAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 585,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(valueAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 585,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addGap(0, 469, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
@@ -134,6 +147,11 @@ public class EventSamplerGui extends AbstractSamplerGui {
 						.addComponent(channeldataAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGroup(layout.createSequentialGroup().addGap(30, 30, 30).addComponent(channeldataLabel)))
+				.addGap(10, 10, 10)
+				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(valueAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGroup(layout.createSequentialGroup().addGap(30, 30, 30).addComponent(valueLabel)))
 				.addGap(10, 10, 10)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 						.addComponent(eventNameLabel).addComponent(eventNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -152,6 +170,7 @@ public class EventSamplerGui extends AbstractSamplerGui {
 
 		numOfResponsesExpectedTextField.setText(String.valueOf(EventSampler.NUM_OF_EXPECTED_RESPONSES_DEFAULT_VALUE));
 		channeldataTextArea.setText(EventSampler.CHANNELDATA_DEFAULT_VALUE);
+		valueTextArea.setText(EventSampler.CHANNELDATA_DEFAULT_VALUE);
 		eventNameTextField.setText(EventSampler.EVENT_NAME_DEFAULT_VALUE);
 	}
 

@@ -3,22 +3,22 @@ package br.com.microsoft.ocp.bot.service.jmeter.builder;
 import br.com.microsoft.ocp.bot.service.jmeter.plugin.schemas.Conversation;
 import br.com.microsoft.ocp.bot.service.jmeter.plugin.schemas.Event;
 import br.com.microsoft.ocp.bot.service.jmeter.plugin.schemas.Member;
-
 import javax.json.JsonObject;
-
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.ISODateTimeFormat;
+
 public class EventActivityBuilder extends ActivityBaseBuilder {
 	
 	public EventActivityBuilder() {
 		
 	}
 	
-	public static Event build(JsonObject channeldata, String name, Member from,
+	public static Event build(JsonObject channeldata, JsonObject value, String name, Member from,
 			Member recipient, String channelId, String serviceUrl, String conversationId) {
 		Event event = new Event();
 		event.setType(Event.EVENT_TYPE);
 		event.setChanneldata(channeldata);
+		event.setValue(value);
 		event.setName(name);
 		event.setFrom(from);
 
